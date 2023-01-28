@@ -6,12 +6,15 @@
 
     <groupId>com.kyvislabs.pushover</groupId>
     <artifactId>pushover</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>pushover-build</module>
+        <module>pushover-common</module>
         <module>pushover-gateway</module>
+        <module>pushover-client</module>
+        <module>pushover-designer</module>
     </modules>
 
     <properties>

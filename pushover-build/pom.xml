@@ -6,7 +6,7 @@
     <parent>
         <artifactId>pushover</artifactId>
 		<groupId>com.kyvislabs.pushover</groupId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </parent>
 
     <artifactId>pushover-build</artifactId>
@@ -14,7 +14,22 @@
     <dependencies>
         <dependency>
             <groupId>com.kyvislabs.pushover</groupId>
+            <artifactId>pushover-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kyvislabs.pushover</groupId>
             <artifactId>pushover-gateway</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kyvislabs.pushover</groupId>
+            <artifactId>pushover-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kyvislabs.pushover</groupId>
+            <artifactId>pushover-designer</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -38,6 +53,18 @@
 
                 <configuration>
                     <projectScopes>
+                        <projectScope>
+                            <name>pushover-client</name>
+                            <scope>CD</scope>
+                        </projectScope>
+                        <projectScope>
+                            <name>pushover-common</name>
+                            <scope>CDG</scope>
+                        </projectScope>
+                        <projectScope>
+                            <name>pushover-designer</name>
+                            <scope>D</scope>
+                        </projectScope>
                         <projectScope>
                             <name>pushover-gateway</name>
                             <scope>G</scope>
@@ -63,6 +90,14 @@
                         <hook>
                             <scope>G</scope>
                             <hookClass>com.kyvislabs.pushover.gateway.GatewayHook</hookClass>
+                        </hook>
+                        <hook>
+                            <scope>C</scope>
+                            <hookClass>com.kyvislabs.pushover.client.ClientHook</hookClass>
+                        </hook>
+                        <hook>
+                            <scope>D</scope>
+                            <hookClass>com.kyvislabs.pushover.designer.DesignerHook</hookClass>
                         </hook>
                     </hooks>
 

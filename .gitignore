@@ -38,3 +38,5 @@ local.properties
 .gradletasknamecache
 .gradle/
 build/
+.vscode/
+build*.sh

@@ -4,9 +4,13 @@ import com.inductiveautomation.ignition.alarming.AlarmNotificationContext;
 import com.inductiveautomation.ignition.alarming.common.ModuleMeta;
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
+import com.inductiveautomation.ignition.common.script.ScriptManager;
+import com.inductiveautomation.ignition.common.script.hints.PropertiesFileDocProvider;
+import com.inductiveautomation.ignition.gateway.clientcomm.ClientReqSession;
 import com.inductiveautomation.ignition.gateway.model.AbstractGatewayModuleHook;
 import com.inductiveautomation.ignition.gateway.model.GatewayContext;
 import com.inductiveautomation.ignition.gateway.services.ModuleServiceConsumer;
+import com.kyvislabs.pushover.common.scripting.PushoverClientImpl;
 import com.kyvislabs.pushover.gateway.profile.PushoverNotificationProfileSettings;
 import com.kyvislabs.pushover.gateway.profile.PushoverNotificationProfileType;
 import com.kyvislabs.pushover.gateway.profile.PushoverProperties;
@@ -19,6 +23,8 @@ public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServ
 
     private GatewayContext gatewayContext;
     private volatile AlarmNotificationContext notificationContext;
+    private final PushoverClientImpl pushoverClient = new PushoverClientImpl();
+
 
     @Override
     public void setup(GatewayContext gatewayContext) {
@@ -93,5 +99,16 @@ public class GatewayHook extends AbstractGatewayModuleHook implements ModuleServ
     @Override
     public boolean isFreeModule() {
         return true;
+    }
+
+    @Override
+    public void initializeScriptManager(ScriptManager manager) {
+        super.initializeScriptManager(manager);
+        manager.addScriptModule("system.pushover", pushoverClient, new PropertiesFileDocProvider());
+    }
+
+    @Override
+    public Object getRPCHandler(ClientReqSession session, String projectName) {
+        return pushoverClient;
     }
 }
